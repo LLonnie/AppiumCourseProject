@@ -20,7 +20,8 @@ public class ECommerceAppTests extends TestingConfig {
 
 		// Fill out form and click Let's Shop
 		landingPage = new LandingPage(driver);
-		landingPage.selectCountry();
+
+		landingPage.selectCountry("Australia");
 		landingPage.enterName("Sarah");
 		landingPage.selectGender("Female");
 		productsPage = landingPage.clickLetsShopButton();

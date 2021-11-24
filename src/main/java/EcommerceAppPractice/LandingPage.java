@@ -17,9 +17,11 @@ public class LandingPage {
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}
 
-	public void selectCountry() {
+	public void selectCountry(String country) {
 		countryDropdown.click();
-		selectAustralia.click();
+		Utilities utilities = new Utilities(driver);
+		utilities.scrollToText(country);
+		driver.findElementByXPath("//*[@text='" + country + "']").click();
 	}
 
 	public void enterName(String name) {
@@ -43,10 +45,6 @@ public class LandingPage {
 
 	private @AndroidFindBy(className = "android.widget.Spinner")
 		WebElement countryDropdown;
-
-	// This doesn't really fit into Page Object Model.
-	private @AndroidFindBy(uiAutomator = "new UiScrollable(new UiSelector()).scrollIntoView(text(\"Australia\"));")
-			WebElement selectAustralia;
 
 	private @AndroidFindBy(className = "android.widget.EditText")
 			WebElement nameInputField;
