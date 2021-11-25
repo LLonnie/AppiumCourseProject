@@ -1,9 +1,14 @@
 package EcommerceAppPractice;
 
 import Configuration.TestingConfig;
+import EcommerceAppPractice.PageObjects.CartPage;
+import EcommerceAppPractice.PageObjects.LandingPage;
+import EcommerceAppPractice.PageObjects.ProductsPage;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
 import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -14,8 +19,15 @@ public class ECommerceAppTests extends TestingConfig {
 	ProductsPage productsPage;
 	CartPage cartPage;
 
+	@BeforeTest
+	public void setupTest() throws IOException {
+		Runtime.getRuntime().exec("taskkill /F /IM node.exe");
+	}
+
 	@Test
 	public void totalIsCorrectInCart() throws IOException, InterruptedException {
+
+		AppiumDriverLocalService service = startServer();
 		AndroidDriver<AndroidElement> driver = initializeDriver("GeneralStoreApp");
 
 		// Fill out form and click Let's Shop
@@ -45,6 +57,7 @@ public class ECommerceAppTests extends TestingConfig {
 		String totalString = cartPage.getCartTotal().getText();
 		double total = getAmount(totalString);
 		Assert.assertEquals(sum, total);
+		service.stop();
 	}
 
 
