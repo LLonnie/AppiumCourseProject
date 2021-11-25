@@ -3,6 +3,10 @@
 
 <!-- Test Suite > Test Folder(Shell/Module/Folder) > Test Cases -->
 <suite name = "E-Commerce App">
+    <listeners>
+        <listener class-name = "Configuration.Listeners"/>
+        <listener class-name = "Configuration.ExtentReporterNG"/>
+    </listeners>
     <test name = "E-Commerce App">
         <classes>
             <class name = "ApiAppPractice.ApiAppTests"/>

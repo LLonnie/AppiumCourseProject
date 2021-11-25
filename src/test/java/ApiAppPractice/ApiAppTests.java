@@ -4,6 +4,7 @@ import ApiAppPractice.PageObjects.HomePage;
 import ApiAppPractice.PageObjects.PreferenceDependenciesPage;
 import ApiAppPractice.PageObjects.PreferencesPage;
 import Configuration.TestingConfig;
+import TestData.ApiAppData;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
@@ -13,8 +14,8 @@ import java.io.IOException;
 
 public class ApiAppTests extends TestingConfig {
 
-	@Test
-	public void canEnableWifi() throws IOException, InterruptedException {
+	@Test(dataProvider = "EmailNames", dataProviderClass = ApiAppData.class)
+	public void canEnableWifi(String emailName) throws IOException, InterruptedException {
 
 		AppiumDriverLocalService service = startServer();
 		AndroidDriver<AndroidElement> driver = initializeDriver("ApiDemos");
@@ -28,7 +29,7 @@ public class ApiAppTests extends TestingConfig {
 		PreferenceDependenciesPage preferenceDependenciesPage = new PreferenceDependenciesPage(driver);
 		preferenceDependenciesPage.enableWifi().click();
 		preferenceDependenciesPage.openWifiSettingsMenu().click();
-		preferenceDependenciesPage.WiFiNameInput().sendKeys("This is my WiFi homie.");
+		preferenceDependenciesPage.WiFiNameInput().sendKeys(emailName);
 		preferenceDependenciesPage.WiFiSettingsButtons().get(1).click();
 		service.stop();
 	}
